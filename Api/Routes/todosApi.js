@@ -28,7 +28,9 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const todo = await Todo.create(req.body);
-    res.json(todo);
+    res.status(500).json({
+      todo : todo
+    })
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal server error!" });
