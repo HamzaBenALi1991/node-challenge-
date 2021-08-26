@@ -14,7 +14,8 @@ app.get("/", (req, res) => {
 
 // setting up todos routes
 const todosRoutes = require("./Api/Routes/todosApi");
-const userRoutes =require('./Api/Routes/userApi')
+const userRoutes =require('./Api/Routes/userApi');
+const mailRoutes =require("./Api/Routes/mailApi")
 
 // mongoose connect 
 const options = {
@@ -52,7 +53,9 @@ app.use ((req,res,next )=>{
 });
 // for routes 
 app.use("/todos", todosRoutes);
-app.use('/users' ,userRoutes)
+app.use('/users' ,userRoutes);
+app.use('/email',mailRoutes)
+
 
 // handlying all wrong routes  :
 
