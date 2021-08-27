@@ -16,7 +16,8 @@ app.get("/", (req, res) => {
 const todosRoutes = require("./Api/Routes/todosApi");
 const userRoutes =require('./Api/Routes/userApi');
 const mailRoutes =require("./Api/Routes/mailApi");
-const fileRoutes =require('./Api/Routes/fileApi')
+const fileRoutes =require('./Api/Routes/fileApi');
+const cronRoutes =require ('./Api/Routes/cronApi')
 
 // mongoose connect 
 const options = {
@@ -59,7 +60,8 @@ app.use ((req,res,next )=>{
 app.use("/todos", todosRoutes);
 app.use('/users' ,userRoutes);
 app.use('/email',mailRoutes) ; 
-app.use('/files' , fileRoutes)
+app.use('/files' , fileRoutes);
+app.use ('/cron', cronRoutes)
 
 
 
