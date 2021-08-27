@@ -15,7 +15,8 @@ app.get("/", (req, res) => {
 // setting up todos routes
 const todosRoutes = require("./Api/Routes/todosApi");
 const userRoutes =require('./Api/Routes/userApi');
-const mailRoutes =require("./Api/Routes/mailApi")
+const mailRoutes =require("./Api/Routes/mailApi");
+const fileRoutes =require('./Api/Routes/fileApi')
 
 // mongoose connect 
 const options = {
@@ -37,6 +38,9 @@ mongoose
 
 // morgan
 app.use(morgan("dev"));
+// making upload folder available publicly 
+
+app.use( "/uploads", express.static("uploads"))
 // config bodyparser 
 app.use(express.json({
   extended : true 
@@ -54,7 +58,9 @@ app.use ((req,res,next )=>{
 // for routes 
 app.use("/todos", todosRoutes);
 app.use('/users' ,userRoutes);
-app.use('/email',mailRoutes)
+app.use('/email',mailRoutes) ; 
+app.use('/files' , fileRoutes)
+
 
 
 // handlying all wrong routes  :
