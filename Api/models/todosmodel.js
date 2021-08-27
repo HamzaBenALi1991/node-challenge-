@@ -9,7 +9,7 @@ const todosSchema = mongoose.Schema({
 });
 
 // create the Todo model 
-const Todos = mongoose.model('todos', todosSchema);
+const Todos = mongoose.model('Todos', todosSchema);
 
 // export model to use it in an other place
 module.exports = Todos;

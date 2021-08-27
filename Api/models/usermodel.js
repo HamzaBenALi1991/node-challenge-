@@ -9,9 +9,9 @@ const userSchema = new Schema({
   email: { type: String , required :true , unique :true },
   password: { type: String , required :true },
   age: Number,
-  todos : [{type : mongoose.Schema.Types.ObjectId , ref : 'todos'}]
+  todos : [{type : mongoose.Schema.Types.ObjectId , ref : 'Todos'}]
   },{ versionKey : false , timestamps :true });
 // create the user model
-const User = mongoose.model("users", userSchema);
+const User = mongoose.model("Users", userSchema);
 
 module.exports = User;
