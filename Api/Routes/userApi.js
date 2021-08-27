@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcrypt");
 // use the model
 const User = require("../models/usermodel");
 const Todos = require("../models/todosmodel");
@@ -55,20 +56,41 @@ router.get("/:id", async (req, res) => {
 // create todo
 router.post("/", async (req, res) => {
   try {
-    const todo = await Todos.findById(req.body.todos);
-    if (todo) {
-      const user = await User.create(req.body);
-
-      res.json({
-        message: "user has been created .",
-        user: user,
-        url: "http://localhost:3000/users/" + user._id,
-      });
-    } else {
-      res.status(422).json({
-        message: "the todos ID does not match anything in the database . ",
-      });
-    }
+    bcrypt.hash(req.body.password, 10, async (err, hash) => {
+      try{
+        if (err) {
+          return res.status(500).json({
+            error: err,
+          });
+        } else {
+          const todo = await Todos.findById(req.body.todos);
+          if (todo != null || req.body.todos == null) {
+            const user = await User.create({
+              firstname: req.body.firstname,
+              email: req.body.email,
+              password: hash,
+              todos: req.body.todos,
+              age: req.body.age,
+            });
+  
+            res.json({
+              message: "user has been created .",
+              user: user,
+              url: "http://localhost:3000/users/" + user._id,
+            });
+          } else {
+            res.status(422).json({
+              message: "the todos ID does not match anything in the database . ",
+            });
+          }
+        }
+      }catch(error){
+        console.log(error);
+    res
+      .status(500)
+      .json({ message: "Internal server error!", error: error.message });
+      }
+    });
   } catch (error) {
     console.log(error);
     res
